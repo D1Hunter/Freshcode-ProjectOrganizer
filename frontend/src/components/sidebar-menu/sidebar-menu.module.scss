@@ -1,0 +1,14 @@
+.sidebar_menu{
+    height: 100%;
+    margin-top: 3.5rem;
+    padding: 0 10px;
+    &_button{
+        margin: 0;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    span{
+        font-weight: bold;
+    }
+}

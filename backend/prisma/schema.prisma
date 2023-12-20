@@ -1,0 +1,87 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  output        = "./generated/client"
+  binaryTargets = ["native", "linux-musl"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String     @id @default(uuid())
+  nickname   String     @db.VarChar(255)
+  email      String     @unique @db.VarChar(255)
+  password   String     @db.VarChar(255)
+  token      Token?
+  boards     Board[]
+  comments   Comment[]
+  activities Activity[]
+}
+
+model Token {
+  accessToken String  @id
+  userId      String? @unique @db.VarChar(255)
+  user        User?   @relation(fields: [userId], references: [id])
+}
+
+model Board {
+  id         String     @id @default(uuid())
+  name       String     @db.VarChar(255)
+  userId     String?    @db.VarChar(255)
+  user       User?      @relation(fields: [userId], references: [id])
+  lists      List[]
+  activities Activity[]
+}
+
+model List {
+  id      String  @id @default(uuid())
+  name    String  @db.VarChar(255)
+  boardId String? @db.VarChar(255)
+  board   Board?  @relation(fields: [boardId], references: [id])
+  cards   Card[]
+}
+
+model Card {
+  id          String     @id @default(uuid())
+  name        String     @db.VarChar(255)
+  description String
+  listId      String?    @db.VarChar(255)
+  list        List?      @relation(fields: [listId], references: [id])
+  comments    Comment[]
+  activities  Activity[]
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  text      String
+  createdAt DateTime @default(now())
+  userId    String?  @db.VarChar(255)
+  user      User?    @relation(fields: [userId], references: [id])
+  cardId    String?  @db.VarChar(255)
+  card      Card?    @relation(fields: [cardId], references: [id])
+}
+
+model ActivityType {
+  id         String     @id @default(uuid())
+  name       String     @unique @db.VarChar(255)
+  activities Activity[]
+}
+
+model Activity {
+  id             String       @id @default(uuid())
+  description    String
+  activityTypeId String       @db.VarChar(255)
+  activityType   ActivityType @relation(fields: [activityTypeId], references: [id])
+  createdAt      DateTime     @default(now())
+  userId         String?      @db.VarChar(255)
+  user           User?        @relation(fields: [userId], references: [id])
+  boardId        String       @db.VarChar(255)
+  board          Board        @relation(fields: [boardId], references: [id])
+  cardId         String?      @db.VarChar(255)
+  card           Card?        @relation(fields: [cardId], references: [id])
+}

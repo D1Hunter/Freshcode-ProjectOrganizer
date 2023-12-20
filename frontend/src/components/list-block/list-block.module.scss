@@ -1,0 +1,13 @@
+.list_block{
+    &_add_button{
+        color: rgb(109, 105, 105);
+        &:hover{
+            color: black;
+            cursor: pointer;
+        }
+    }
+    h4{
+        margin: 0;
+    }
+    margin-bottom: 1.8rem;
+}

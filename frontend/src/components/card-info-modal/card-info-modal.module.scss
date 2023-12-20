@@ -1,0 +1,38 @@
+.card_info_modal{
+    padding: 1rem;
+    &_edit_title{
+        margin-left: 2rem;
+        display: flex;
+        align-items: center;
+        padding: 0.5rem;
+        gap:1rem;
+        background: #d6dadd;
+        &:hover{
+            background: #9ea1a5;
+            cursor: pointer;
+        }
+    }
+    &_button{
+        width:100%;
+        display:flex;
+        align-items: center;
+        color:black;
+        background:#d6dadd;
+        border:0;
+        &:hover{
+            color:black;
+            background: #747679;
+            cursor: pointer;
+        }
+    }
+
+    p{
+        margin: 0;
+    }
+    span{
+        font-weight: bold;
+    }
+    textarea{
+        resize: none;
+    }
+}
