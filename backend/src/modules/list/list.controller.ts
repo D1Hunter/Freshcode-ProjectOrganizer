@@ -96,8 +96,8 @@ export default class ListController {
                 boardName: board.name
             });
             await this.activityService.create({ description: activityDescription, activityTypeId: activityType.id, userId: user.id, boardId: board.id });
-            await this.cardService.deleteAllByListId(list.id);
             await this.commentService.deleteAllByListId(list.id);
+            await this.cardService.deleteAllByListId(list.id);
             await this.listService.delete(list.id);
             return { message: "The list has been deleted successfully" };
         } catch (error) {

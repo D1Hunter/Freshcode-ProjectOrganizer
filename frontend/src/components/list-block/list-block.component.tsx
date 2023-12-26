@@ -43,7 +43,8 @@ export const ListBlock: FC<IListBlock> = ({ list, cardClick }) => {
             return;
         }
         setShowSubmitDeleteListForm(false);
-        await dispatch(deleteList(list.id));
+        dispatch(deleteList(list.id));
+        target.current = null;
     }
 
     return (
@@ -63,19 +64,20 @@ export const ListBlock: FC<IListBlock> = ({ list, cardClick }) => {
                         <CloseButton className="ms-1" onClick={() => setShowListChangeName(false)} />
                     </InputGroup>
                 ) : <div className="d-flex align-items-center justify-content-between mb-1">
-                    <h4 onDoubleClick={handleShowChangeName}>{list.name}</h4>
-                    <Button  ref={target} style={{ background: "none", border: "none", color: "black", alignSelf: "flex-start"  }} onClick={() => setShowDeleteTip(!showDeleteTip)}><ThreeDots /></Button>
+                    <h4 className={styles.list_block_title} onDoubleClick={handleShowChangeName}>{list.name}</h4>
+                    <Button ref={target} className={styles.list_block_dots} onClick={() => setShowDeleteTip(!showDeleteTip)}><ThreeDots /></Button>
                     <Overlay target={target.current} show={showDeleteTip} placement="bottom">
-                        <div onClick={() => setShowSubmitDeleteListForm(!showSubmitDeleteListForm)} style={{
-                        position: 'absolute',
-                        backgroundColor: 'rgba(255, 100, 100, 0.85)',
-                        padding: '2px 10px',
-                        color: 'white',
-                        borderRadius: 3,
-                        cursor: 'pointer'
-                        }}>
-                            Delete
-                        </div>
+                        {({ placement: _placement,
+                            arrowProps: _arrowProps,
+                            show: _show,
+                            popper: _popper,
+                            hasDoneInitialMeasure: _hasDoneInitialMeasure,
+                            ...props
+                        }) => (
+                            <div {...props} className={styles.list_block_overlay_btn} onClick={() => setShowSubmitDeleteListForm(!showSubmitDeleteListForm)}>
+                                Delete
+                            </div>
+                        )}
                     </Overlay>
                 </div>}
                 <Droppable droppableId={list.id}>

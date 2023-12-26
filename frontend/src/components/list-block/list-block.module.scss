@@ -1,8 +1,42 @@
 .list_block{
+    &_title{
+        &:hover{
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+    }
     &_add_button{
         color: rgb(109, 105, 105);
         &:hover{
             color: black;
+            cursor: pointer;
+        }
+    }
+    &_dots{
+        background: none;
+        border: none;
+        color: black;
+        align-self: flex-start;
+        &:active{
+            background: none;
+            border: none;
+        }
+        &:hover{
+            background: none;
+            border: none;
+            color: black;
+            align-self: flex-start;
+            transform: scale(1.2);
+        }
+    }
+    &_overlay_btn{
+        position: absolute;
+        background-color: rgba(255, 100, 100, 0.85);
+        padding: 2px 10px;
+        color:white;
+        border-radius: 3;
+        &:hover{
+            background-color: rgba(255, 40, 40, 0.85);
             cursor: pointer;
         }
     }

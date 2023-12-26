@@ -6,12 +6,12 @@ class ListSeedData {
     lists: Prisma.ListUncheckedCreateInput[] = [];
     constructor() {
         const boardsDataSize = boardSeedData.boards.length;
-        for (let i = 0; i < boardsDataSize; i++) {
+        for (let boardIndex = 0; boardIndex < boardsDataSize; boardIndex++) {
             for (let i = 0; i < 2; ++i) {
                 this.lists.push({
                     id: v4(),
                     name: `Queue${i + 1}`,
-                    boardId: boardSeedData.boards[i].id,
+                    boardId: boardSeedData.boards[boardIndex].id,
                 });
             }
         }

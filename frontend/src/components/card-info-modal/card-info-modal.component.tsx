@@ -4,7 +4,6 @@ import { FC, useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useCard } from "../../store/action-creators/card.action.creator"
 import { useTypedSelector } from "../../hooks/useTypedSelector"
-import { useList } from "../../store/action-creators/list.action.creator"
 import { CardText, ChatLeft, List, ListColumnsReverse, Trash } from "react-bootstrap-icons"
 import { EditCardDescription } from "../edit-card-description/edit-card-description.component"
 import styles from "./card-info-modal.module.scss";
@@ -21,10 +20,9 @@ interface ICardInfoModal {
 export const CardInfoModal: FC<ICardInfoModal> = ({ card, show, setShow }) => {
     const [showEditCardDescription, setShowEditCardDescription] = useState<boolean>(false);
     const [comment, setComment] = useState<string>("")
-    const { removeCardFromList } = useList();
     const { getActivitiesByCard } = useActivity();
     const { getCommentsByCardId, addCommentToCard } = useComment();
-    const { isReady, getCardById } = useCard();
+    const { isReady, getCardById, removeCardFromList } = useCard();
     const { user } = useTypedSelector(state => state.authReducer);
     const { currentCard } = useTypedSelector(state => state.cardReducer);
     const { activities } = useTypedSelector(state => state.activityReducer);
@@ -45,6 +43,7 @@ export const CardInfoModal: FC<ICardInfoModal> = ({ card, show, setShow }) => {
             return;
         }
         dispatch(addCommentToCard({ cardId: card.id, text: comment }));
+        dispatch(getActivitiesByCard(card.id));
     }
 
     const confirmDeleteCardHandler = async () => {
@@ -80,8 +79,8 @@ export const CardInfoModal: FC<ICardInfoModal> = ({ card, show, setShow }) => {
                             <div className="mt-4">
                                 <h4><ChatLeft className="me-2" />Add Comment</h4>
                                 {comments && comments.length > 0 &&
-                                    comments.map((comment) => (
-                                        <div className="d-flex align-items-center mt-2">
+                                    comments.map((comment, index) => (
+                                        <div key={index} className="d-flex align-items-center mt-2">
                                             <div className="rounded-circle d-flex align-items-center justify-content-center me-1 mt-1"
                                                 style={{ background: "#e0e5e6", width: "40px", height: "40px", alignSelf: "flex-start" }}>
                                                 <span>{comment.user?.email[0].toUpperCase()}</span>

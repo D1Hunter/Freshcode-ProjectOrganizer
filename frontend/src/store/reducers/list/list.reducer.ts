@@ -18,11 +18,7 @@ export const listReducer = (state = initialState, action: ListAction): IListStat
                 lists: action.payload
             };
         case ListActionTypes.ADD_CARD_TO_LIST:
-            state.lists.find((list) => {
-                if (list.id == action.payload.listId) {
-                    list.cards.push(action.payload);
-                }
-            });
+            state.lists.find((list) => list.id == action.payload.listId )?.cards.push(action.payload);
             return {
                 ...state,
                 lists: [...state.lists]
@@ -41,7 +37,7 @@ export const listReducer = (state = initialState, action: ListAction): IListStat
             const sourceCard = sourceList ? sourceList.cards.splice(action.payload.sourceCardIndex, 1)[0] : null;
             const destinationList = state.lists.find((list) => list.id === action.payload.destinationListId);
             if (destinationList && sourceCard) {
-                destinationList.cards.push(sourceCard);
+                destinationList.cards.push({...sourceCard, listId:action.payload.destinationListId});
             }
             return {
                 ...state,

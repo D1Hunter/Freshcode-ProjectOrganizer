@@ -18,10 +18,10 @@ export const Auth: FC = () => {
             return;
         }
         if (email.length === 0 && password.length === 0 && repeatPassword.length === 0) {
-            return alert('Заповніть усі поля');
+            return alert('Fill all fields');
         }
         if (password !== repeatPassword) {
-            return alert('Паролі не співпадають');
+            return alert('Passwords do not match');
         }
         dispatch(registerUser({ email, password }));
     }

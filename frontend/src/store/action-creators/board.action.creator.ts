@@ -52,7 +52,7 @@ export const useBoard = () => {
                 setReady(false);
                 const token = localStorage.getItem('token');
                 const response = await BoardService.getOneById(token, id);
-                dispatch(setListsAction(response.data.board.lists))
+                dispatch(setListsAction(response.data.board.lists));
                 dispatch(setCurrentBoardAction(response.data.board));
                 return response;
             } catch (error) {

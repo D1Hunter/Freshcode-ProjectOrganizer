@@ -1,8 +1,8 @@
 import { FC, useState } from "react";
-import { Button, Card, CloseButton, Form, InputGroup } from "react-bootstrap";
-import { useList } from "../../store/action-creators/list.action.creator";
+import { Button, CloseButton, Form, InputGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import styles from "./add-card.module.scss";
+import { useCard } from "../../store/action-creators/card.action.creator";
 
 interface IAddCard {
     listId: string
@@ -11,7 +11,7 @@ interface IAddCard {
 
 export const AddCard: FC<IAddCard> = ({ listId, setShow }) => {
     const [name, setName] = useState<string>("");
-    const { addCardToList } = useList();
+    const { addCardToList } = useCard();
     const dispatch: any = useDispatch();
 
     const onSumbitClickHandler = async () => {

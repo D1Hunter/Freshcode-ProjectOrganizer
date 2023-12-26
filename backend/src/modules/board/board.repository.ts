@@ -23,7 +23,8 @@ export default class BoardRepository implements IBoardRepository {
                     cards:{
                         select:{
                             id:true,
-                            name:true
+                            name:true,
+                            listId:true
                         }
                     }
                 }

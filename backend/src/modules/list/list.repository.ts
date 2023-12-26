@@ -25,7 +25,7 @@ export default class ListRepository implements IListRepository {
                     select: {
                         id: true,
                         name: true,
-                        description: true
+                        listId:true
                     }
                 }
             }

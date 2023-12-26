@@ -11,14 +11,14 @@ interface IEditCardDescription {
 }
 export const EditCardDescription: FC<IEditCardDescription> = ({ card, setShow }) => {
     const [description, setDescription] = useState<string>(card.description || '');
-    const {updateCard}= useCard();
+    const { updateCard } = useCard();
     const dispatch: any = useDispatch();
 
     const onSumbitClickHandler = async () => {
         if (description.length == 0) {
             return;
         }
-        dispatch(updateCard(card,{name:card.name,description:description,listId:card.list.id}));
+        dispatch(updateCard(card, { name: card.name, description: description, listId: card.list.id }));
         setShow(false);
     }
 

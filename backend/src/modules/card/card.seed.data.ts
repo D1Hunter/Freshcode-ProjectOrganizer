@@ -9,11 +9,9 @@ class CardSeedData {
         const cardIndex = new Map<string, number>();
         let boardId = "";
         for (let i = 0; i < listsDataSize; i++) {
-            if (listSeedData.lists[i].boardId && boardId != listSeedData.lists[i].boardId) {
-                boardId = String(listSeedData.lists[i].boardId)
-                const currentCardIndex = cardIndex.get(boardId) || 0;
-                cardIndex.set(boardId, currentCardIndex + 1);
-            }
+            boardId = String(listSeedData.lists[i].boardId)
+            const currentCardIndex = cardIndex.get(boardId) || 0;
+            cardIndex.set(boardId, currentCardIndex + 1);
             this.cards.push({
                 id: v4(),
                 name: `Card${cardIndex.get(listSeedData.lists[i].boardId || '')}`,

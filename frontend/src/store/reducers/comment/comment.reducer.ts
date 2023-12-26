@@ -15,7 +15,7 @@ export const commentReducer = (state = initialState, action: CommentAction): ICo
         case CommentActionTypes.ADD_COMMENT:
             return {
                 ...state,
-                comments: [...state.comments, action.payload]
+                comments: [ action.payload, ...state.comments]
             }
         default:
             return state;

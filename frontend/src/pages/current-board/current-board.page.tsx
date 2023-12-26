@@ -63,17 +63,16 @@ export const CurrentBoard: FC = () => {
                                 setShowSidebarMenu(!showSidebarMenu)
                             }}><ThreeDots /> Show Menu</span>
                         </div>
-                        <Row>
-                            {lists.length > 0 && getChunckedData(lists).map((chunk) => (
-                                <>
+                            {lists.length > 0 && getChunckedData(lists).map((chunk, index) => (
+                                <Row key={index}>
                                     {chunk.map((list, index) => (
-                                        <Col key={index} sm={12} md={6} xl={4}>
+                                        <Col key={index}  sm={12} md={4} xl={4}>
                                             <ListBlock list={list} cardClick={cardClick} />
                                         </Col>
                                     )
                                     )}
                                     {chunk.length < 3 ?
-                                        <Col sm={12} md={6} xl={4}>
+                                        <Col  sm={12} md={4} xl={4}>
                                             {showAddNewListCard ? <AddListCard boardId={currentBoard?.id || ''} setShow={showDisplaAddNewListCard} /> :
                                                 <Card className={styles.current_board_add_list} onClick={() => showDisplaAddNewListCard(true)}>
                                                     <Card.Body>
@@ -86,10 +85,10 @@ export const CurrentBoard: FC = () => {
                                         </Col>
                                         : <></>
                                     }
-                                </>
+                                </Row>
                             ))}
                             {lists.length % 3 === 0 ?
-                                <Col sm={12} md={6} xl={4}>
+                                <Col  sm={12} md={4} xl={4}>
                                     {showAddNewListCard ? <AddListCard boardId={currentBoard?.id || ''} setShow={showDisplaAddNewListCard} /> :
                                         <Card className={styles.current_board_add_list} onClick={() => showDisplaAddNewListCard(true)}>
                                             <Card.Body>
@@ -101,7 +100,6 @@ export const CurrentBoard: FC = () => {
                                     }
                                 </Col> : <></>
                             }
-                        </Row>
                     </Container>
                     {showSidebarMenu && currentBoard && <SidebarMenu board={currentBoard} show={showSidebarMenu} setShow={setShowSidebarMenu} placement="end" />}
                     {show && selectedCard &&
